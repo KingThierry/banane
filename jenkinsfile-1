@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    tools {nodejs "node"}
+    stages {
+        stage('Cloniong Repo'){
+            steps {
+                script {
+                    git branch: 'master',
+                    url: 'https://github.com/KingThierry/banane.git'
+                }
+            }
+        }
+        stage('Install jest-cli'){
+            steps {
+                sh'npm install jest-cli -g'
+            }
+        }
+        stage('Install dependencies'){
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test'){
+            steps {
+                sh 'npm test'
+            }
+        }
+    }
+}
